@@ -1,19 +1,14 @@
 const db = require("../models");
 const router = require("express").Router();
 
-//commnet in to prepopulate database
-// db.Workout.find({}).then(function (res) {
-//     console.log("Checking if db is populated");
-//     if (res.length === 0) {
-//         console.log("DB is empty");
-//         require("./seeders/seed.js");
-//     }
-// });
+
 
 //get workouts
 router.get("/api/workouts", (req, res) => {
-
-    db.Workout.find({}).then(dbWorkout => {
+    db.Workout.find({})
+    .sort({ day: -1 })
+    .limit(7)
+    .then(dbWorkout => {
         // console.log("ALL WORKOUTS");
         // console.log(dbWorkout);
         dbWorkout.forEach(workout => {
@@ -62,8 +57,11 @@ router.post("/api/workouts", ({ body }, res) => {
 
 // get workouts in range
 router.get("/api/workouts/range", (req, res) => {
-
-    db.Workout.find({}).then(dbWorkout => {
+    db.Workout.find({})
+    .sort({ day: -1 })
+    .limit(7)
+    .then(dbWorkout => {
+        
         console.log("ALL WORKOUTS");
         console.log(dbWorkout);
 
